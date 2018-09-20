@@ -1,0 +1,17 @@
+[
+  "Pretty room Lorena : € 189", 
+  "Bubu hostel : € 196", 
+  "Apartman Emil : € 200", 
+  "Hostel Chameleon : € 182", 
+  "Hostel Centar : € 203", 
+  "The Cherry Hostel : € 196", 
+  "My Way Hostel : € 123", 
+  "Hostel Chic : € 182", 
+  "Apartmani Lu : € 185", 
+  "Hostel Temza : € 126", 
+  "Main Square Hostel : € 84", 
+  "Apartments Garden II : € 162", 
+  "Guesthouse Sermageova : € 168", 
+  "Guesthouse History : € 176", 
+  "Subspace Hostel : € 189"
+]
