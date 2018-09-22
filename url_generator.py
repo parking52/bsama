@@ -24,8 +24,8 @@ no_rooms={number_of_rooms}&\
 group_adults={number_of_adults}&\
 group_children={number_of_children}&\
 dest_type=city&\
-nflt=review_score%3D80%3B&\
-order=price
+order=price&\
+nflt=review_score%3D80%3Boos%3D1%3B
     """
 
     return sample_url.format(
