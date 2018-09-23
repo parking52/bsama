@@ -76,7 +76,7 @@ def get_lowest_price(url):
 
     hotel_name = ''
     url = ''
-    price = None
+    price = '\n0\n'
 
     hotels = parsed_html.find_all('div', {'class': 'sr_item'})
     name = hotels[0].find('span', {'class': 'sr-hotel__name '}).contents[0]
@@ -85,7 +85,10 @@ def get_lowest_price(url):
         # last one as pollution might come (more than one) and we want last one
     except IndexError:
         # the hotel is fully booked
-        price = None
+        try:
+            price = hotels[0].find_all('b', {'class': ''})[-1].contents[0]
+        except:
+            pass
     try:
         hotel_name = str(name.encode('latin-1')).strip('\n')
     except (UnicodeDecodeError, UnicodeEncodeError):
