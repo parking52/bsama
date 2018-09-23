@@ -86,7 +86,7 @@ def get_lowest_price(url):
     except IndexError:
         # the hotel is fully booked
         try:
-            price = hotels[0].find_all('b', {'class': ''})[-1].contents[0]
+            price = hotels[1].find_all('b', {'class': ''})[-1].contents[0]
         except:
             pass
     try:
