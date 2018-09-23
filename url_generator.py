@@ -25,8 +25,15 @@ group_adults={number_of_adults}&\
 group_children={number_of_children}&\
 dest_type=city&\
 order=price&\
-nflt=review_score%3D80%3Boos%3D1%3B
+nflt=review_score%3D80%3Boos%3D1%3Brpt%3D1%3B
     """
+
+## nflt is a marker of all customs filters you want the search to have
+    #Currently we are using :
+    # review_score%3D80%3B => only 8+ locations
+    # oos%3D1%3B => locations should be available (not out of stock)
+    # rpt%3D1%3B => the locations should not be shared
+
 
     return sample_url.format(
                          search_term=search_term,
