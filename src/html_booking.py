@@ -19,7 +19,7 @@ def get_booking_page(url):
     return parsed_html
 
 
-def get_data(url, city, page_limit=None):
+def get_data(url, page_limit=None):
     '''
     Get all accomodations in Macedonia and save them in file
     :return: hotels-{city}.txt file
@@ -56,6 +56,8 @@ def get_data(url, city, page_limit=None):
                 print('problem with hotel ' + name)
 
     return hotels
+
+
 def get_lowest_price(url):
 
     parsed_html = get_booking_page(url)
