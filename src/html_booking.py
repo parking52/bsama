@@ -1,3 +1,4 @@
+
 #! /usr/bin/env python3
 import json
 import requests
@@ -18,7 +19,7 @@ def get_booking_page(url):
     return parsed_html
 
 
-def get_data(url, city, page_limit=None):
+def get_data(url, page_limit=None):
     '''
     Get all accomodations in Macedonia and save them in file
     :return: hotels-{city}.txt file
@@ -53,21 +54,8 @@ def get_data(url, city, page_limit=None):
                 hotels.append(str(name.encode('latin-1')).strip('\n') + ' : ' + price.strip('\n'))
             except (UnicodeDecodeError, UnicodeEncodeError):
                 print('problem with hotel ' + name)
-    save_data(hotels, city)
 
-
-def save_data(data, city):
-    '''
-    Saves hotels list in file
-    :param data: hotels list
-    :return:
-    '''
-    file_name = '/home/mfracas/BookingScraper/hotels-in-{city}.txt'.format(city=city)
-    with open(file_name, 'w') as outfile:
-        json.dump([d.encode('utf-8') for d in data], outfile, indent=2, ensure_ascii=False)
-
-    print('All accommodations are saved.')
-    print('You can find them in', file_name, 'file')
+    return hotels
 
 
 def get_lowest_price(url):
