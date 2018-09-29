@@ -1,6 +1,6 @@
 import csv
-from url_generator import build_url
-from booking import get_lowest_price
+from src.url.url_generator import build_url
+from html_booking import get_lowest_price
 
 if __name__ == '__main__':
 
@@ -10,12 +10,12 @@ if __name__ == '__main__':
 
     stay_length = 4
 
-    cities = ['copenhagen', 'zagreb']
+    cities = ['Munich']
     for city in cities:
 
         result_list = []
 
-        for starting_date in range(1, 27):
+        for starting_date in range(1, 2):
 
             url4 = build_url(city, month, starting_date, year, month, starting_date+4, year)
             price4 = get_lowest_price(url4)
@@ -38,13 +38,14 @@ if __name__ == '__main__':
                  '3 nights', price3[2:], url3,)
             )
 
-            if False:
+            if True:
                 print(str(starting_date) + ',' + 'price4:' + price4 + ',' + 'price1:' + price1 + ',' + 'price2:' + price2+ ',' + 'price3:' + price3)
 
         if True:
-            with open('price-table-for-{city}.csv'.format(city=city), 'w') as f:  # Just use 'w' mode in 3.x
+
+            with open('../output/price-table-for-{city}.csv'.format(city=city), 'w') as f:  # Just use 'w' mode in 3.x
                 writer = csv.writer(f)
                 writer.writerows(result_list)
 
-        print 'Done with city ' + city
+        print('Done with city ' + city)
 
