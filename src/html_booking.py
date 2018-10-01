@@ -1,4 +1,3 @@
-
 #! /usr/bin/env python3
 import json
 import requests
@@ -62,8 +61,6 @@ def get_lowest_price(url):
 
     parsed_html = get_booking_page(url)
 
-    hotel_name = ''
-    url = ''
     price = '\n0\n'
 
     hotels = parsed_html.find_all('div', {'class': 'sr_item'})
@@ -82,5 +79,24 @@ def get_lowest_price(url):
     except (UnicodeDecodeError, UnicodeEncodeError):
         print('problem with hotel ' + name)
 
-    #return hotel_name, url, price
     return price.strip('\n')
+
+
+def get_location_link(hotel_html):
+
+    url_block = hotel_html.find_all('a', {'class' : 'hotel_name_link url'})
+    block_href = url_block[0]['href']
+
+    location_url = 'https://www.booking.com/' + str(block_href.strip('\n'))
+
+    return location_url
+
+
+def get_location_geolocalisation(hotel_html):
+    pass
+
+
+def get_location_name(hotel_html):
+    name = hotel_html.find('span', {'class': 'sr-hotel__name '}).contents[0]
+
+    return name.strip('\n')
