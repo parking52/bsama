@@ -1,6 +1,6 @@
 import csv
-from src.url.url_generator import build_url
-from src.date_formats.daterange import daterange
+from url.url_generator import build_url
+from date_formats.daterange import daterange
 from html_booking import get_lowest_price
 from datetime import timedelta, date
 
@@ -49,8 +49,10 @@ if __name__ == '__main__':
                 print(str(starting_date) + ',' + 'price4:' + price4 + ',' + 'price1:' + price1 + ',' + 'price2:' + price2 + ',' + 'price3:' + price3)
 
         if True:
+            import os
+            output_folder = os.path.join("..", "output", "price-table-for-{city}.csv".format(city=city))
 
-            with open('../output/price-table-for-{city}.csv'.format(city=city), 'w') as f:  # Just use 'w' mode in 3.x
+            with open(output_folder.format(city=city), 'w') as f:  # Just use 'w' mode in 3.x
                 writer = csv.writer(f)
                 writer.writerows(result_list)
 
