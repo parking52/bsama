@@ -1,15 +1,15 @@
 import csv
 from url.url_generator import build_url
 from date_formats.daterange import daterange
-from html_booking import get_lowest_price
+from html_booking import get_lowest_price, get_html_from_url
 from datetime import timedelta, date
 
 
 if __name__ == '__main__':
 
     # This is getting the lowest prices for several time frames ..
-    month = 10
-    year = 2018
+    month = 3
+    year = 2019
     day = 1
 
     initial_date = date(year=year, month=month, day=day)
@@ -25,16 +25,20 @@ if __name__ == '__main__':
         for starting_date in daterange(initial_date, end_date):
 
             url4 = build_url(city, starting_date, starting_date + timedelta(4))
-            price4 = get_lowest_price(url4)
+            html4 = get_html_from_url(url4)
+            price4 = get_lowest_price(html4)
 
             url1 = build_url(city, starting_date, starting_date + timedelta(1))
-            price1 = get_lowest_price(url1)
+            html1 = get_html_from_url(url1)
+            price1 = get_lowest_price(html1)
 
             url2 = build_url(city, starting_date, starting_date + timedelta(2))
-            price2 = get_lowest_price(url2)
+            html2 = get_html_from_url(url2)
+            price2 = get_lowest_price(html2)
 
             url3 = build_url(city, starting_date, starting_date + timedelta(3))
-            price3 = get_lowest_price(url3)
+            html3 = get_html_from_url(url3)
+            price3 = get_lowest_price(html3)
 
             # [2:] to remove the euro sign unicode TODO fix
             result_list.append(

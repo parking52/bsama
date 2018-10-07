@@ -57,34 +57,39 @@ def get_data(url, page_limit=None):
     return hotels
 
 
-def get_lowest_price(url):
-
+def get_html_from_url(url):
     parsed_html = get_booking_page(url)
+    return parsed_html
+
+
+def get_lowest_price(parsed_html, format_as=None):
+
+    hotels = parsed_html.find_all('div', {'class': 'sr_item'})
 
     price = '\n0\n'
 
-    hotels = parsed_html.find_all('div', {'class': 'sr_item'})
     name = hotels[0].find('span', {'class': 'sr-hotel__name '}).contents[0]
-    try:
-        price = hotels[0].find_all('b', {'class': ''})[-1].contents[0]
-        # last one as pollution might come (more than one) and we want last one
-    except IndexError:
-        # the hotel is fully booked
-        try:
-            price = hotels[1].find_all('b', {'class': ''})[-1].contents[0]
-        except:
-            pass
+    price = hotels[0].find_all('b', {'class': ''})[-1].contents[0]
+
     try:
         hotel_name = str(name.encode('latin-1')).strip('\n')
     except (UnicodeDecodeError, UnicodeEncodeError):
         print('problem with hotel ' + name)
 
-    return price.strip('\n')
+    if format_as=='int':
+        return int(price.strip('\n')[2:].replace(',', ''))
+    else:
+        return price.strip('\n')
+
+
+def get_price_from_hotel(hotel_html):
+    price = hotel_html.find_all('b', {'class': ''})[-1].contents[0]
+    return price
 
 
 def get_location_link(hotel_html):
 
-    url_block = hotel_html.find_all('a', {'class' : 'hotel_name_link url'})
+    url_block = hotel_html.find_all('a', {'class': 'hotel_name_link url'})
     block_href = url_block[0]['href']
 
     location_url = 'https://www.booking.com/' + str(block_href.strip('\n'))
@@ -93,6 +98,10 @@ def get_location_link(hotel_html):
 
 
 def get_location_geolocalisation(hotel_html):
+    pass
+
+
+def get_location_rating(hotel_html):
     pass
 
 
