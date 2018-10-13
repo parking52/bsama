@@ -17,7 +17,7 @@ if __name__ == '__main__':
 
     stay_length = 4
 
-    cities = ['Venice']
+    cities = ['Venice', 'Boston']
     for city in cities:
 
         result_list = []
@@ -42,21 +42,30 @@ if __name__ == '__main__':
 
             # [2:] to remove the euro sign unicode TODO fix
             result_list.append(
-                (str(starting_date),
+                (city,
+                 str(starting_date),
                  '4 nights', price4[2:], url4,
                  '1 night', price1[2:], url1,
                  '2 nights', price2[2:], url2,
-                 '3 nights', price3[2:], url3,)
+                 '3 nights', price3[2:], url3,
+                 )
             )
 
             if True:
                 print(str(starting_date) + ',' + 'price4:' + price4 + ',' + 'price1:' + price1 + ',' + 'price2:' + price2 + ',' + 'price3:' + price3)
 
-        if True:
+        if False:
             import os
             output_folder = os.path.join("..", "output", "price-table-for-{city}.csv".format(city=city))
 
             with open(output_folder.format(city=city), 'w') as f:  # Just use 'w' mode in 3.x
+                writer = csv.writer(f)
+                writer.writerows(result_list)
+
+        if True:
+            import os
+            output_folder = os.path.join("..", "output", "price-table-for-list-of-cities.csv".format(city=city))
+            with open(output_folder, 'a') as f:  # Just use 'w' mode in 3.x
                 writer = csv.writer(f)
                 writer.writerows(result_list)
 
