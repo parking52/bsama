@@ -64,6 +64,7 @@ if __name__ == '__main__':
 
         if True:
             import os
+
             output_folder = os.path.join("..", "output", "price-table-for-list-of-cities.csv")
             with open(output_folder, 'a') as f:  # Just use 'w' mode in 3.x
                 writer = csv.writer(f)
