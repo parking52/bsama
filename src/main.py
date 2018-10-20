@@ -1,5 +1,5 @@
 from url.url_generator import build_url
-from html_booking import get_data
+from scrapping.html_booking import get_data
 from output_writers import save_data
 from datetime import date
 

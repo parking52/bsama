@@ -1,5 +1,6 @@
 # Bsama specifics
-output/
+output/*
+!output/price-table-for-Venice.csv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

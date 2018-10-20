@@ -1,0 +1,54 @@
+swagger: '2.0'
+info:
+  title: BackendAPI
+  version: "0.1"
+produces:
+- application/json
+
+#security:
+#  - oauth2: [uid]
+
+paths:
+
+  /status:
+    get:
+      tags:
+      - status
+      operationId: twocasas_backend_api.get_status
+      summary: Get health status
+      security: []
+      responses:
+        200:
+          description: Return status health
+
+  /recommendation:
+    get:
+      tags:
+      - recommendation
+      operationId: twocasas_backend_api.get_recommendation
+      summary: Get recommendation based on city and dates.
+      security: []
+      parameters:
+      - name: city
+        in: query
+        type: string
+        required: true
+      - name: date_in
+        in: query
+        type: string
+        required: true
+      - name: date_out
+        in: query
+        type: string
+        required: true
+      - name: group_size
+        in: query
+        type: integer
+        required: true
+      responses:
+        200:
+          description: Recommendation based on city and dates.
+        404:
+          description: Not Found
+        500:
+          description: Internal Server Error

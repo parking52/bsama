@@ -1,7 +1,7 @@
 import csv
 from url.url_generator import build_url
 from date_formats.daterange import daterange
-from html_booking import get_lowest_price, get_html_from_url
+from scrapping.html_booking import get_lowest_price, get_html_from_url
 from datetime import timedelta, date
 
 
@@ -64,7 +64,8 @@ if __name__ == '__main__':
 
         if True:
             import os
-            output_folder = os.path.join("..", "output", "price-table-for-list-of-cities.csv".format(city=city))
+
+            output_folder = os.path.join("..", "output", "price-table-for-list-of-cities.csv")
             with open(output_folder, 'a') as f:  # Just use 'w' mode in 3.x
                 writer = csv.writer(f)
                 writer.writerows(result_list)

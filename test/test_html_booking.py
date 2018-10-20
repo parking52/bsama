@@ -1,4 +1,4 @@
-from src.html_booking import get_location_link, get_booking_page, get_location_name, get_location_geolocalisation
+from src.html import get_location_link, get_booking_page, get_location_name, get_location_geolocalisation
 from src.url.url_generator import build_url
 from datetime import date, timedelta
 from test_helpers import load_sample_result_html
