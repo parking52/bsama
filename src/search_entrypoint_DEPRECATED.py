@@ -1,10 +1,10 @@
 from url.url_generator import build_url
 from date_formats.daterange import get_all_intermediate_dates
-from html_booking import get_lowest_price, get_html_from_url, get_location_link
+from scrapping.html_booking import get_lowest_price, get_html_from_url, get_location_link
 from datetime import timedelta, date
 
 
-def get_n_options(city, initial_date, end_date, max_split, n_results):
+def get_n_options(city, initial_date, end_date, group_size, max_split=2, n_results=1):
 
     url_original = build_url(city, initial_date, end_date)
     html_original_url = get_html_from_url(url_original)
@@ -40,7 +40,7 @@ def get_n_options(city, initial_date, end_date, max_split, n_results):
 
     data_dict = {}
     data_dict['original_url'] = url_original
-    data_dict['original_price'] = price_original_url[2:]
+    data_dict['original_price'] = int(price_original_url[2:])
     data_dict['url_to_split_properties'] = [best_data_object['url_stay1'], best_data_object['url_stay2']]
     data_dict['split_prices'] = [best_data_object['price1'], best_data_object['price2']]
     data_dict['new_total_price'] = best_data_object['new_total_price']
@@ -70,6 +70,7 @@ if __name__ == '__main__':
 
     stay_length = 6
     max_split = 2
+    group_size = 1
 
     initial_date = date(year=year, month=month, day=day)
     end_date = initial_date + timedelta(stay_length)
@@ -81,6 +82,7 @@ if __name__ == '__main__':
                   city=city,
                   initial_date=initial_date,
                   end_date=end_date,
+                  group_size=group_size,
                   max_split=max_split,
                   n_results=n_results,
                   )
