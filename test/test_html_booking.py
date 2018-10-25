@@ -1,7 +1,8 @@
-from src.html import get_location_link, get_booking_page, get_location_name, get_location_geolocalisation
+from scrapping.html_booking import get_location_link, get_location_name, get_location_image_link, \
+    get_location_geolocalisation, get_price_from_hotel
 from src.url.url_generator import build_url
 from datetime import date, timedelta
-from test_helpers import load_sample_result_html
+from test.test_helpers import load_sample_result_html
 
 if __name__ == '__main__':
 
@@ -23,6 +24,18 @@ if __name__ == '__main__':
     print(get_location_name(hotels[0]))
     print(get_location_name(hotels[1]))
     print(get_location_name(hotels[2]))
+
+    print('------------')
+
+    print(get_price_from_hotel(hotels[0], format_as='int'))
+    print(get_price_from_hotel(hotels[1]))
+    print(get_price_from_hotel(hotels[2]))
+
+    print('------------')
+
+    print(get_location_image_link(hotels[0]))
+    print(get_location_image_link(hotels[1]))
+    print(get_location_image_link(hotels[2]))
 
     print('------------')
 

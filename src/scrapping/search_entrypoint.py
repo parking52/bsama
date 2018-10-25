@@ -1,6 +1,7 @@
 from url.url_generator import build_url
 from date_formats.daterange import get_all_intermediate_dates
-from scrapping.html_booking import get_lowest_price, get_html_from_url, get_location_link
+from scrapping.html_booking import get_lowest_price, get_html_from_url, get_location_link,\
+    get_location_image_link, get_location_name, get_hotel_list_from_html, get_price_from_hotel
 from datetime import timedelta, date
 
 
@@ -9,6 +10,8 @@ def get_n_options(city, initial_date, end_date, group_size, max_split=2, n_resul
     url_original = build_url(search_term=city, checkin_date=initial_date, checkout_date=end_date)
     html_original_url = get_html_from_url(url_original)
     price_original_url = get_lowest_price(html_original_url)
+    image_original = get_location_image_link(html_original_url)
+    name_original = get_location_name(html_original_url)
 
     best_total_price = 99999
     best_data_object = {}
@@ -17,36 +20,48 @@ def get_n_options(city, initial_date, end_date, group_size, max_split=2, n_resul
 
         url_split1 = build_url(city, initial_date, split_date)
         html_url1 = get_html_from_url(url_split1)
-        price1 = get_lowest_price(html_url1, format_as='int')
-        url_stay1 = get_location_link(html_url1)
+        hotel_challenger_1 = get_hotel_list_from_html(html_url1)[0]
+        price1 = get_price_from_hotel(hotel_challenger_1, format_as='int')
 
         url_split2 = build_url(city, split_date, end_date)
         html_url2 = get_html_from_url(url_split2)
-        price2 = get_lowest_price(html_url2, format_as='int')
-        url_stay2 = get_location_link(html_url2)
+        hotel_challenger_2 = get_hotel_list_from_html(html_url2)[0]
+        price2 = get_price_from_hotel(hotel_challenger_2, format_as='int')
 
         new_total_price = price1 + price2
 
         if new_total_price < best_total_price:
             best_total_price = new_total_price
-            best_data_object['price1'] = price1
-            best_data_object['price2'] = price2
+            best_data_object['hotel_challenger_1'] = hotel_challenger_1
+            best_data_object['hotel_challenger_2'] = hotel_challenger_2
             best_data_object['new_total_price'] = new_total_price
-            best_data_object['url_stay1'] = url_stay1
-            best_data_object['url_stay2'] = url_stay2
 
         print('split processed ' + str(split_date))
 
-
-    data_dict = {}
+    data_dict = dict()
     data_dict['original_url'] = url_original
     data_dict['original_price'] = int(price_original_url[2:])
-    data_dict['url_to_split_properties'] = [best_data_object['url_stay1'], best_data_object['url_stay2']]
-    data_dict['split_prices'] = [best_data_object['price1'], best_data_object['price2']]
+    data_dict['original_image'] = image_original
+    data_dict['original_name'] = name_original
+    data_dict['url_to_split_properties'] = [
+        get_location_link(best_data_object['hotel_challenger_1']),
+        get_location_link(best_data_object['hotel_challenger_2']),
+    ]
+    data_dict['split_prices'] = [
+        get_price_from_hotel(best_data_object['hotel_challenger_1'], format_as='int'),
+        get_price_from_hotel(best_data_object['hotel_challenger_2'], format_as='int'),
+    ]
     data_dict['new_total_price'] = best_data_object['new_total_price']
+    data_dict['images_from_split'] = [
+        get_location_image_link(best_data_object['hotel_challenger_1']),
+        get_location_image_link(best_data_object['hotel_challenger_2']),
+    ]
+    data_dict['name_from_split'] = [
+        get_location_name(best_data_object['hotel_challenger_1']),
+        get_location_name(best_data_object['hotel_challenger_2']),
+    ]
 
     return data_dict
-
 
 def print_readable_data_dict(data_dict):
     try:
@@ -63,7 +78,7 @@ def print_readable_data_dict(data_dict):
 
 if __name__ == '__main__':
 
-    ##v1 No tricks
+    #V1 No tricks
     month = 11
     year = 2018
     day = 1
@@ -77,6 +92,12 @@ if __name__ == '__main__':
 
     city = 'Madrid'
     n_results = 1
+
+    # @ medorado can you please also parse and return
+    # name of the property, HAVE
+    # image link, HAVE
+    # price HAVE
+    # link to that property. HAVE
 
     result = get_n_options(
                   city=city,
