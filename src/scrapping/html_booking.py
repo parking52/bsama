@@ -58,8 +58,23 @@ def get_data(url, page_limit=None):
 
 
 def get_html_from_url(url):
-    parsed_html = get_booking_page(url)
+    '''
+    Make request to booking page and parse html
+    :param offset:
+    :return: html page
+    '''
+    r = requests.get(url, headers=
+      {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0)'
+                     ' Gecko/20100101 Firefox/48.0'})
+    html = r.content
+    parsed_html = BeautifulSoup(html, 'lxml')
     return parsed_html
+
+
+def get_hotel_list_from_html(parsed_html):
+
+    hotels = parsed_html.find_all('div', {'class': 'sr_item'})
+    return hotels
 
 
 def get_lowest_price(parsed_html, format_as=None):
@@ -76,15 +91,18 @@ def get_lowest_price(parsed_html, format_as=None):
     except (UnicodeDecodeError, UnicodeEncodeError):
         print('problem with hotel ' + name)
 
-    if format_as=='int':
+    if format_as == 'int':
         return int(price.strip('\n')[2:].replace(',', ''))
     else:
         return price.strip('\n')
 
 
-def get_price_from_hotel(hotel_html):
+def get_price_from_hotel(hotel_html, format_as=None):
     price = hotel_html.find_all('b', {'class': ''})[-1].contents[0]
-    return price
+    if format_as == 'int':
+        return int(price.strip('\n')[2:].replace(',', ''))
+    else:
+        return price.strip('\n')
 
 
 def get_location_link(hotel_html):
@@ -93,6 +111,16 @@ def get_location_link(hotel_html):
     block_href = url_block[0]['href']
 
     location_url = 'https://www.booking.com/' + str(block_href.strip('\n'))
+
+    return location_url
+
+
+def get_location_image_link(hotel_html):
+
+    image_block = hotel_html.find_all('img', {'class': 'hotel_image'})
+    block_href = image_block[0]['data-highres']
+
+    location_url = str(block_href.strip('\n'))
 
     return location_url
 
