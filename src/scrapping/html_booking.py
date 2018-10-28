@@ -67,6 +67,8 @@ def get_html_from_url(url):
       {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0)'
                      ' Gecko/20100101 Firefox/48.0'})
     html = r.content
+    code = r.status_code
+    print('got status code {code} while getting {url}'.format(url=url, code=code))
     parsed_html = BeautifulSoup(html, 'lxml')
     return parsed_html
 
@@ -74,6 +76,7 @@ def get_html_from_url(url):
 def get_hotel_list_from_html(parsed_html):
 
     hotels = parsed_html.find_all('div', {'class': 'sr_item'})
+    print('The list contains so many hotels: ' + str(len(hotels)))
     return hotels
 
 
@@ -99,6 +102,8 @@ def get_lowest_price(parsed_html, format_as=None):
 
 def get_price_from_hotel(hotel_html, format_as=None):
     price = hotel_html.find_all('b', {'class': ''})[-1].contents[0]
+    print(price.encode('utf-8'))
+
     if format_as == 'int':
         return int(price.strip('\n')[2:].replace(',', ''))
     else:

@@ -99,6 +99,8 @@ if __name__ == '__main__':
     # price HAVE
     # link to that property. HAVE
 
+    ## => GRequests
+
     result = get_n_options(
                   city=city,
                   initial_date=initial_date,

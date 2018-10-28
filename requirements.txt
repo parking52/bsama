@@ -1,9 +1,9 @@
 lxml==4.2.4
 beautifulsoup4==4.6.3
-requests
+requests==2.20.0
 openpyxl==2.5.4
 gevent==1.2.2
 Flask==1.0.2
 Flask-Compress==1.4.0
-gunicorn
-connexion
+gunicorn==19.9.0
+connexion==1.5.3

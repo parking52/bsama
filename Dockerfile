@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:18.04
 
 RUN apt-get update && \
     apt-get install -y \
@@ -16,9 +16,9 @@ COPY gunicorn_config.py .
 ENV PYTHON_EGG_CACHE=/tmp/.python-eggs
 
 EXPOSE 8080
-CMD gunicorn \
-    --bind 0.0.0.0:8080 \
-    --config gunicorn_config.py \
-    twocasas_backend_api.wsgi
+#CMD gunicorn \
+#    --bind 0.0.0.0:$PORT \
+#    --config gunicorn_config.py \
+#    twocasas_backend_api.wsgi
 
-#CMD twocasas-backend-api-application
+CMD twocasas-backend-api-application.py

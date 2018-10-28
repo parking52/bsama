@@ -6,15 +6,14 @@ from __future__ import absolute_import
 import gevent.monkey
 gevent.monkey.patch_all()
 
-import click
-
+import os
 from twocasas_backend_api.app import create_connexion_app
 
 
-@click.command()
 def main():
     app = create_connexion_app()
-    app.run()
+    port = os.environ.get('PORT', '8080')
+    app.run(port=int(port))
 
 
 if __name__ == '__main__':

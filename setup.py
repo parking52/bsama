@@ -24,7 +24,7 @@ setup(
     package_data={'twocasas_backend_api': ['swagger.yaml']},
     zip_safe=False,
     scripts=[
-        os.path.join('bin', 'twocasas-backend-api-application'),
+        os.path.join('bin', 'twocasas-backend-api-application.py'),
     ],
     # setup_requires=['pytest-runner'],
     install_requires=get_install_requirements('requirements.txt'),
