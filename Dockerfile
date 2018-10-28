@@ -16,9 +16,9 @@ COPY gunicorn_config.py .
 ENV PYTHON_EGG_CACHE=/tmp/.python-eggs
 
 EXPOSE 8080
-#CMD gunicorn \
-#    --bind 0.0.0.0:$PORT \
-#    --config gunicorn_config.py \
-#    twocasas_backend_api.wsgi
+CMD gunicorn \
+    --bind 0.0.0.0:$PORT \
+    --config gunicorn_config.py \
+    twocasas_backend_api.wsgi
 
-CMD twocasas-backend-api-application.py
+#CMD twocasas-backend-api-application.py

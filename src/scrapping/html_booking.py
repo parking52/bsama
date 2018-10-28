@@ -69,6 +69,7 @@ def get_html_from_url(url):
     html = r.content
     code = r.status_code
     print('got status code {code} while getting {url}'.format(url=url, code=code))
+    print('got html length {htmllen}'.format(htmllen=len(html)))
     parsed_html = BeautifulSoup(html, 'lxml')
     return parsed_html
 
