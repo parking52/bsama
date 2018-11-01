@@ -1,10 +1,10 @@
 import multiprocessing
 
 # The recommended initial value is 2*N+1, and should be ~4..16.
-workers = multiprocessing.cpu_count() * 2 + 1
-
-worker_class = 'gevent'
-worker_connections = 1000
+workers = multiprocessing.cpu_count()
+#
+# worker_class = 'gevent'
+# worker_connections = 1000
 
 # Log to stdout for Docker & Scalyr.
 accesslog = '-'

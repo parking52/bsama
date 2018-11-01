@@ -17,7 +17,7 @@ def create_connexion_app():
     and in the tests/fixtures without the databases/logging.
     """
 
-    app = connexion.App(__name__, port=8080, debug=False, server='gevent')
+    app = connexion.App(__name__, port=8080, debug=False)
     app.add_api(resource_filename('twocasas_backend_api', SWAGGER_FILE))
     app.app.wsgi_app = ProxyFix(app.app.wsgi_app)
     Compress().init_app(app.app)

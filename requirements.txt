@@ -3,7 +3,7 @@ certifi==2018.8.24
 chardet==3.0.4
 Click==7.0
 clickclick==1.2.2
-connexion==2.0.0rc3
+connexion==1.3
 et-xmlfile==1.0.1
 Flask==1.0.2
 Flask-Compress==1.4.0

@@ -15,13 +15,14 @@ def get_install_requirements(path):
     if py_major_version == 2 or (py_major_version == 3 and py_minor_version < 4):
         requires.append('pathlib')
     return requires
+
+
 setup(
     name='twocasas-backend-api',
-    author='ASF team',
     version='0.1',
     packages=find_packages('src'),
     package_dir={'': 'src'},
-    package_data={'twocasas_backend_api': ['swagger.yaml']},
+    package_data={'twocasas_backend_api': ['swagger.yaml', 'swagger2.yaml']},
     zip_safe=False,
     scripts=[
         os.path.join('bin', 'twocasas-backend-api-application.py'),
